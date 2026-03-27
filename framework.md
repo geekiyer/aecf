@@ -22,3 +22,27 @@ These skills are more than knowing how to use AI tools like ChatGPT, but less th
 
 **What this framework does not cover:** It does not cover the skills needed to do research, on AI models, or to work on AI and data science projects or to manage AI products
 The basic skills that all software engineers need to have which are still necessary and not replaced by these new skills.
+
+---
+
+## Framework structure
+
+The framework defines **5 domains** and **3 proficiency levels**.
+
+### Proficiency levels
+
+| Level | Label      | Description                                                                                                                               |
+|-------|------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| L1    | Emerging   | Demonstrates awareness of the skill. Can apply it in guided scenarios with direct support. Is building intuition through exposure.        |
+| L2    | Practicing | Applies the skill independently in routine situations. Recognizes failure modes. Brings it to their own work without being prompted.      |
+| L3    | Leading    | Applies the skill in novel, ambiguous, or high-stakes situations. Can teach and calibrate others. Shapes team practices around the skill. |
+
+Skills marked with a level are expected to be demonstrated at or above that level in candidates at the corresponding seniority band. Skills marked L3-only represent differentiated senior capabilities — their absence does not disqualify junior or mid candidates.
+
+---
+
+## Domain 1: AI output judgment
+
+**Definition:** The ability to critically evaluate AI-generated outputs — code, analysis, documentation, designs — and accurately identify errors, gaps, and failure modes before they propagate downstream.
+
+This is the highest-signal domain in the framework. It is the skill that most directly predicts whether an engineer will ship AI-assisted work that is reliable, or AI-assisted work that looks good until it fails in production.
