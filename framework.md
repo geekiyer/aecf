@@ -2,47 +2,98 @@
 
 ## AECF v1.0
 
-> This document is about a framework to evaluate engineering skills that're important in the AI era.
-> We can use it to hire people help them develop their careers and see how good our teams are.
-> It is not a standard that you must follow to get a certificate.
-> This document will change over time. We will keep track of the changes. Use version numbers to keep it organized.
+> This document defines a competency framework for evaluating engineering skills specific to the AI era. 
+> It covers hiring, career development, and team capability assessment. It is not a certification standard. 
+> Version numbers are meaningful and the changelog is maintained.
 
 ## Background and motivation
 
-In the past when companies hired engineers they looked for people who could write code quickly.
-Things have changed a lot since then. Now in 2026 most professional software engineers use AI tools to help them code every day.
-The problem is not about writing code anymore it is about looking at the code to see if it is good designing systems that use AI in a smart way and deciding when to trust the output of AI tools.
 
-The old frameworks that we used to evaluate engineers like SFIA and the lists of questions that companies use to interview engineers have not been updated to include these skills.
+Most technical hiring frameworks were built for a world where the main engineering bottleneck was writing correct code quickly. That world has changed.
 
-So I made this framework to identify the skills that're important for engineers who work with AI and to make it useful for hiring and training people.
+The majority of professional software engineers now use AI coding tools daily. The bottleneck isn't producing code anymore — it's evaluating it, making judgment calls about when to trust it, and designing systems that don't quietly break when the model gets something wrong.
 
-**What this framework is about:** It covers the skills that engineers need to be good at building things with AI.
-These skills are more than knowing how to use AI tools like ChatGPT, but less than being able to do research and train AI models from scratch.
+Existing frameworks — SFIA, internal engineering ladders, technical interview question banks — haven't caught up. This document names the skills that have become critical on AI-first teams, with enough specificity to actually use in a hiring rubric or a performance review.
 
-**What this framework does not cover:** It does not cover the skills needed to do research, on AI models, or to work on AI and data science projects or to manage AI products
-The basic skills that all software engineers need to have which are still necessary and not replaced by these new skills.
+**What this covers:** Production engineering skills that predict whether someone is effective on a team building with AI. Specifically: the range above "has used ChatGPT" and below "trains foundation models from scratch."
+
+**What this doesn't cover:** ML research, data science, AI product management, and general software engineering fundamentals. Those are prerequisites, not replacements.
 
 ---
 
-## Framework structure
+## Structure
 
-The framework defines **5 domains** and **3 proficiency levels**.
+Five domains. Three proficiency levels.
 
 ### Proficiency levels
 
-| Level | Label      | Description                                                                                                                               |
-|-------|------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| L1    | Emerging   | Demonstrates awareness of the skill. Can apply it in guided scenarios with direct support. Is building intuition through exposure.        |
-| L2    | Practicing | Applies the skill independently in routine situations. Recognizes failure modes. Brings it to their own work without being prompted.      |
-| L3    | Leading    | Applies the skill in novel, ambiguous, or high-stakes situations. Can teach and calibrate others. Shapes team practices around the skill. |
+| Level | Label      | Description                                                                                                                           |
+|-------|------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| L1    | Emerging   | Aware of the skill. Can apply it with guidance. Still building intuition through exposure.                                            |
+| L2    | Practicing | Applies it independently in routine situations. Recognizes the common failure modes. Brings it to their own work without being asked. |
+| L3    | Leading    | Applies it in novel or ambiguous situations. Can calibrate others. Shapes how the team works around this skill.                       |
 
-Skills marked with a level are expected to be demonstrated at or above that level in candidates at the corresponding seniority band. Skills marked L3-only represent differentiated senior capabilities — their absence does not disqualify junior or mid candidates.
+Where a skill is marked with a minimum level, candidates at that seniority band should demonstrate it at or above that level. L3-only skills are differentiators — their absence doesn't disqualify junior or mid candidates.
 
 ---
 
 ## Domain 1: AI output judgment
 
-**Definition:** The ability to critically evaluate AI-generated outputs — code, analysis, documentation, designs — and accurately identify errors, gaps, and failure modes before they propagate downstream.
+Can they tell when the AI is wrong?
 
-This is the highest-signal domain in the framework. It is the skill that most directly predicts whether an engineer will ship AI-assisted work that is reliable, or AI-assisted work that looks good until it fails in production.
+This is the highest-signal domain in the framework. More than any other skill area, it predicts whether an engineer ships AI-assisted work that holds up in production — or work that looks fine until it doesn't.
+
+### Skills
+
+---
+
+**1.1 Hallucination detection**  
+*Expected at: L1 and above*
+
+AI outputs can be fluent, confident, and wrong. This skill is catching that — hallucinated API methods, invented library functions, incorrect package names, fabricated citations, logical structures that are syntactically fine but do the wrong thing.
+
+| Level | Indicator                                                                                                                                                                                                                |
+|-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| L1    | Catches obvious hallucinations (non-existent library methods) when explicitly looking for errors.                                                                                                                        |
+| L2    | Proactively checks AI-generated code against actual docs for libraries they know. Flags when they're in unfamiliar territory and can't verify.                                                                           |
+| L3    | Has built up a mental model of where different models tend to hallucinate. Can predict likely failure points from the prompt context alone. Designs review processes that catch this systematically rather than on luck. |
+
+---
+
+**1.2 AI code review**  
+*Expected at: L2 and above*
+
+AI code has its own failure patterns — different from the bugs humans write, and not well-caught by standard review practices. Over-engineered solutions that miss the actual context. Security patterns that are textbook-correct but wrong for the threat model. Error handling that silently swallows failures. Off-by-ones at boundary conditions. Sections of generated code that make conflicting assumptions because they were written from different prompt contexts.
+
+Reviewing AI code well means applying a distinct posture, not just running the same checklist.
+
+| Level | Indicator                                                                                                                                   |
+|-------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| L1    | Reviews AI code the same way they'd review a human-authored PR. Hasn't yet built up a separate mental model for AI-specific failures.       |
+| L2    | Approaches AI-generated code with calibrated skepticism. Checks for context-appropriateness, not just correctness.                          |
+| L3    | Knows the AI failure pattern taxonomy well enough to move fast without missing things. Has contributed to team norms around AI code review. |
+
+---
+
+**1.3 Confidence calibration**  
+*Expected at: L2 and above*
+
+AI confidence and AI accuracy aren't the same thing. Models are often most confidently wrong in areas where they have just enough training data to pattern-match, but not enough to reason correctly. This skill is developing a working sense of when to trust the output and when to verify — and not treating "sounds right" as evidence.
+
+| Level | Indicator                                                                                                                                                   |
+|-------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| L2    | Has personal heuristics for trust levels by domain and task type. Doesn't accept outputs at face value.                                                     |
+| L3    | Can articulate the calibration model clearly enough to teach it. Notices when the team as a whole is over- or under-trusting AI output and corrects for it. |
+
+---
+
+**1.4 Failure mode literacy**  
+*Expected at: L3*
+
+Knowing *why* models fail, not just *that* they fail. Training cutoff effects, context window degradation, prompt injection, sycophancy (the model agreeing with whatever the user implies), anchoring from early context, the difference between instruction-following and completion behavior.
+
+| Level | Indicator                                                                                                                                                                                                  |
+|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| L3    | Can explain the mechanism behind the major failure modes. Uses that understanding to design prompts, review processes, and systems that account for known weaknesses rather than just hoping for the best. |
+
+---
