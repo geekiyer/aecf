@@ -97,3 +97,62 @@ Knowing *why* models fail, not just *that* they fail. Training cutoff effects, c
 | L3    | Can explain the mechanism behind the major failure modes. Uses that understanding to design prompts, review processes, and systems that account for known weaknesses rather than just hoping for the best. |
 
 ---
+
+
+## Domain 2: Prompt and context architecture
+
+Can they build prompt systems that hold up in production?
+
+There's a real difference between writing a prompt that works in one session and building a prompt system that works reliably at scale, doesn't drift as context changes, and can be tested and maintained by a team. This domain is about the latter.
+
+### Skills
+
+---
+
+**2.1 Prompt engineering fundamentals**  
+*Expected at: L1 and above*
+
+Chain-of-thought structuring, few-shot example design, output format specification, constraint and persona setting. The building blocks.
+
+| Level | Indicator                                                                                                                                       |
+|-------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| L1    | Can write prompts that consistently produce the right output format for well-defined tasks.                                                     |
+| L2    | Designs prompts with explicit reasoning structures. Makes deliberate choices about few-shot examples. Tests against edge cases before shipping. |
+| L3    | Designs prompt systems — sequences, conditionals, fallbacks — rather than individual prompts. Thinks about how components interact.             |
+
+---
+
+**2.2 Context window management**  
+*Expected at: L2 and above*
+
+Context windows have limits, and model performance degrades as they fill up — not linearly, and not always in obvious ways. This skill is working within those constraints deliberately: prioritizing what goes in, building retrieval strategies that don't just dump everything available, and knowing when the approach needs to change.
+
+| Level | Indicator                                                                                                                                  |
+|-------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| L2    | Knows that long-context degradation is real and designs retrieval to account for it. Doesn't naively max out context.                      |
+| L3    | Makes quantitative decisions about context allocation. Benchmarks performance at different utilization levels for their specific use case. |
+
+---
+
+**2.3 RAG pipeline design**  
+*Expected at: L2 and above*
+
+Building retrieval-augmented generation systems that stay accurate as source data changes. This means thinking through chunking strategy, embedding model selection, retrieval scoring, re-ranking, hybrid search, and what happens when the underlying data gets updated.
+
+| Level | Indicator                                                                                                                                                                         |
+|-------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| L2    | Can build a working RAG pipeline with standard tooling. Understands the tradeoffs between chunk size, retrieval precision, and context usage.                                     |
+| L3    | Designs for reliability at scale. Benchmarks retrieval quality. Can debug RAG failures — wrong context, missing context, stale context — systematically rather than by guesswork. |
+
+---
+
+**2.4 Prompt versioning and governance**  
+*Expected at: L3*
+
+Prompts in production are code. They need version control, change tracking, regression tests, review processes, and deployment workflows. Teams that treat them as informal one-offs accumulate invisible debt that surfaces at the worst times.
+
+| Level | Indicator                                                                                                                                                                                                            |
+|-------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| L3    | Has implemented or pushed for prompt versioning infrastructure. Can describe, from experience, what breaks in systems where prompts aren't versioned. Contributes to team standards for prompt lifecycle management. |
+
+---
