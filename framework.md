@@ -156,3 +156,59 @@ Prompts in production are code. They need version control, change tracking, regr
 | L3    | Has implemented or pushed for prompt versioning infrastructure. Can describe, from experience, what breaks in systems where prompts aren't versioned. Contributes to team standards for prompt lifecycle management. |
 
 ---
+
+## Domain 3: AI system design and architecture
+
+Do they design for when the AI is wrong, not just for when it's right?
+
+AI system design is its own thing — distinct from traditional system design and distinct from model development. It means incorporating non-deterministic components into otherwise deterministic systems, which creates architectural problems that standard frameworks don't have good answers for.
+
+### Skills
+
+---
+
+**3.1 Human-in-the-loop design**  
+*Expected at: L2 and above*
+
+Knowing where human review needs to sit in an AI-assisted workflow, designing the escalation path, and calibrating how much automation is appropriate for a given consequence level. Full automation is not a default — it's a decision that should be justified.
+
+| Level | Indicator                                                                                                                                                                                                           |
+|-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| L2    | Calls out human review requirements in design docs. Doesn't assume "we'll automate it" without thinking through what happens when the automation is wrong.                                                          |
+| L3    | Designs tiered oversight models based on consequence severity. Quantifies the automation/error-rate tradeoff for the specific use case. Treats the escalation path as a first-class design problem, not a footnote. |
+
+---
+
+**3.2 Agent architecture**  
+*Expected at: L3*
+
+Multi-step agents fail in ways that single-turn AI calls don't - reasoning loops, tool misuse, context drift over long chains, conflicting outputs across steps. Building agents that actually complete tasks reliably means thinking through memory strategy (in-context vs. external), retry and circuit breaker logic, and how the thing fails gracefully when it goes off the rails.
+
+| Level | Indicator                                                                                                                                                                                                                         |
+|-------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| L3    | Has built multi-step agents that work in production, not just demos. Has a principled approach to memory architecture. Designs for the failure paths, not just the happy path. Can explain where their agent designs are fragile. |
+
+---
+
+**3.3 AI failure isolation**  
+*Expected at: L2 and above*
+
+When an AI call fails, that failure shouldn't take down the broader system. Circuit breakers, deterministic fallbacks, graceful degradation, explicit timeouts - these patterns exist for a reason, and they matter more with non-deterministic components than with anything else.
+
+| Level | Indicator                                                                                                         |
+|-------|-------------------------------------------------------------------------------------------------------------------|
+| L2    | Designs AI integrations with explicit fallback paths. Treats AI calls as unreliable by default, not by exception. |
+| L3    | Maps the full failure surface of AI components systematically. Reviews team designs for unhandled failure paths.  |
+
+---
+
+**3.4 Latency and cost modeling**  
+*Expected at: L3*
+
+AI API calls are expensive and slow compared to most things in a system. Modeling that before implementation - caching strategies, model routing, async patterns, cost monitoring - is the difference between a product that ships on budget and one that surprises everyone six months later.
+
+| Level | Indicator                                                                                                                                                                                                 |
+|-------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| L3    | Can estimate API costs for a given usage pattern before writing the implementation. Designs caching and routing to hit latency requirements. Has built or run cost monitoring for AI spend in production. |
+
+---
